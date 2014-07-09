@@ -1,16 +1,18 @@
 var watch = require('watch');
 var FormData = require("form-data");
 var fs = require("fs");
+var util = require("util");
+
 
 watch.createMonitor(process.env.MONITOR_FOLDER, function (monitor) {
     monitor.on("created", function (f, stat) {
-        console.log("Uploading activity file %s", f);
+        util.log("Uploading activity file " + f);
         var form = new FormData();
         form.append('file', fs.createReadStream(f));
         form.submit(opts, submitHandler);
     });
     monitor.on("removed", function (f, stat) {
-        console.log("%s was removed", f)
+        util.log(f + " was removed")
     });
 });
 
@@ -24,11 +26,11 @@ var opts = {
 
 var submitHandler = function (err, res) {
     if (res.statusCode === 201) {
-        console.log("Activity successfully uploaded to Strava");
+        util.log("Activity successfully uploaded to Strava");
     } else {
-        console.log("Unable to upload activity to Strava");
+        util.log("Unable to upload activity to Strava");
         res.on('data', function (chunk) {
-            console.log("Error: %s", JSON.parse(chunk).error);
+            util.log("Error: " + JSON.parse(chunk).error);
         });
     }
     res.resume();

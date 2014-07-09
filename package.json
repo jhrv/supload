@@ -16,7 +16,10 @@
     "url": "https://github.com/jhrv/supload.git"
   },
   "keywords": [
-    "strava", "upload", "monitor", "garmin"
+    "strava",
+    "upload",
+    "monitor",
+    "garmin"
   ],
   "author": "Johnny Horvi",
   "license": "MIT",
