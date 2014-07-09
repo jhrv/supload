@@ -1,0 +1,27 @@
+{
+  "name": "supload",
+  "version": "0.0.1",
+  "description": "Simple Strava activity upload util",
+  "main": "app.js",
+  "dependencies": {
+    "form-data": "^0.1.4",
+    "watch": "^0.10.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jhrv/supload.git"
+  },
+  "keywords": [
+    "strava", "upload", "monitor", "garmin"
+  ],
+  "author": "Johnny Horvi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jhrv/supload/issues"
+  },
+  "homepage": "https://github.com/jhrv/supload"
+}

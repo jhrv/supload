@@ -1,0 +1,4 @@
+#!/bin/bash
+
+export STRAVA_TOKEN=<your strava token id, see http://strava.github.io/api/v3/oauth/>
+export MONITOR_FOLDER=<the folder where your .fit files are synced to>

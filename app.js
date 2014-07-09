@@ -1,16 +1,38 @@
-  var watch = require('watch')
-  watch.createMonitor('/Users/hrv/Documents/workspace/supload/testing', function (monitor) {
-    //monitor.files['/Users/hrv/Documents/workspace/supload/testing'] // Stat object for my zshrc.
+var watch = require('watch');
+var FormData = require("form-data");
+var fs = require("fs");
+
+watch.createMonitor(process.env.MONITOR_FOLDER, function (monitor) {
     monitor.on("created", function (f, stat) {
-      console.log("created something!" + f);
-      console.log("stat = " + stat);
-    })
-    monitor.on("changed", function (f, curr, prev) {
-      // Handle file changes
-      console.log("something changed...")
-    })
+        console.log("Uploading activity file %s", f);
+        var form = new FormData();
+        form.append('file', fs.createReadStream(f));
+        form.submit(opts, submitHandler);
+    });
     monitor.on("removed", function (f, stat) {
-      console.log("something was removed")
-    })
-    //monitor.stop(); // Stop watching
-  })
+        console.log("%s was removed", f)
+    });
+});
+
+var opts = {
+    host: 'www.strava.com',
+    path: '/api/v3/uploads?activity_type=ride&data_type=fit',
+    headers: {
+        'Authorization': 'Bearer ' + process.env.STRAVA_TOKEN
+    }
+}
+
+var submitHandler = function (err, res) {
+    if (res.statusCode === 201) {
+        console.log("Activity successfully uploaded to Strava");
+    } else {
+        console.log("Unable to upload activity to Strava");
+        res.on('data', function (chunk) {
+            console.log("Error: %s", JSON.parse(chunk).error);
+        });
+    }
+    res.resume();
+}
+
+
+
