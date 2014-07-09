@@ -2,15 +2,18 @@ var watch = require('watch');
 var FormData = require("form-data");
 var fs = require("fs");
 var util = require("util");
+var monitorFolder = process.env.MONITOR_FOLDER;
 
+watch.createMonitor(monitorFolder, function (monitor) {
+    util.log("Started monitoring " + monitorFolder);
 
-watch.createMonitor(process.env.MONITOR_FOLDER, function (monitor) {
     monitor.on("created", function (f, stat) {
-        util.log("Uploading activity file " + f);
+        util.log("Detected new activity file " + f);
         var form = new FormData();
         form.append('file', fs.createReadStream(f));
         form.submit(opts, submitHandler);
     });
+
     monitor.on("removed", function (f, stat) {
         util.log(f + " was removed")
     });
