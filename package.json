@@ -4,7 +4,7 @@
   "description": "Simple Strava activity upload util",
   "main": "app.js",
   "dependencies": {
-    "form-data": "^0.1.4",
+    "request": "^2.40.0",
     "watch": "^0.10.0"
   },
   "devDependencies": {},
@@ -19,6 +19,7 @@
     "strava",
     "upload",
     "monitor",
+    "fit",
     "garmin"
   ],
   "author": "Johnny Horvi",
